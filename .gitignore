@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+venv/
+.venv/
+
+# Audio and media files
+*.mp3
+*.mp4
+*.webm
+*.m4a
+*.wav
+downloads/
