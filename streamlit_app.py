@@ -27,9 +27,9 @@ with st.container():
     )
 
     output_dir_input = st.text_input(
-        "Destination Folder:",
+        "Destination Folder (Inside App/Container):",
         value=default_output_dir,
-        help="The local folder where converted MP3 files will be stored."
+        help="Folder where converted MP3 files will be stored. When running in Docker, this maps to your mounted volume."
     )
 
     col1, col2 = st.columns([1, 1])
@@ -37,9 +37,11 @@ with st.container():
         convert_clicked = st.button("🚀 Convert to MP3", type="primary", use_container_width=True)
     with col2:
         if st.button("📂 Open Output Folder", use_container_width=True):
-            if os.path.exists(output_dir_input):
+            if hasattr(os, "startfile") and os.path.exists(output_dir_input):
                 os.startfile(output_dir_input)
                 st.toast("Opened destination folder in File Explorer!", icon="📂")
+            elif os.path.exists(output_dir_input):
+                st.info(f"App is running in a container. Converted files are accessible in your mounted host folder: `{output_dir_input}`")
             else:
                 st.error("Folder does not exist.")
 

@@ -1,0 +1,11 @@
+services:
+  yt-to-mp3:
+    build: .
+    image: yt-to-mp3-app:latest
+    container_name: yt_mp3_converter
+    ports:
+      - "8501:8501"
+    volumes:
+      # Mounts your local downloads directory to the container so all MP3s are saved directly to your computer
+      - ./downloads:/app/downloads
+    restart: unless-stopped
